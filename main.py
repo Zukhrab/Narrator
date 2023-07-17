@@ -1,8 +1,15 @@
-from gtts import gTTS
+import os
 
-text = "Добро пожаловать в мир Python!"
-language = "ru"
-filename = "welcome.mp3"
+# Trainer: Where the ✨️ happens.
+# TrainingArgs: Defines the set of arguments of the Trainer.
+from trainer import Trainer, TrainerArgs
 
-tts = gTTS(text=text, lang=language)
-tts.save(filename)
+# GlowTTSConfig: all model related values for training, validating and testing.
+from TTS.tts.configs.glow_tts_config import GlowTTSConfig
+
+# BaseDatasetConfig: defines name, formatter and path of the dataset.
+from TTS.tts.configs.shared_configs import BaseDatasetConfig
+from TTS.tts.datasets import load_tts_samples
+from TTS.tts.models.glow_tts import GlowTTS
+from TTS.tts.utils.text.tokenizer import TTSTokenizer
+from TTS.utils.audio import AudioProcessor
