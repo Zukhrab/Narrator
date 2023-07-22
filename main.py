@@ -1,70 +1,39 @@
-import os
-import PyPDF2 as pdf2
-import tkinter
-import time
- 
+import extractor
+from tkinter import *
+from tkvideo import tkvideo
+import glob
 
-Window_Width=400
+filename = "Baron_En.pdf" # Replace with the filename you want to find
+directory = "../Narrator" # Replace with the path of the directory you want to search in
 
-Window_Height=1000
+filepaths = glob.glob(f"{directory}/**/{filename}", recursive=True)
+print(filepaths)
 
-Ball_Start_XPosition = 50
-
-Ball_Start_YPosition = 50
-
-Ball_Radius = 30
-
-Ball_min_movement = 5
-
-Refresh_Sec = 0.01
- 
-
-def create_animation_window():
-  Window = tkinter.Tk()
-  Window.title("Python Guides")
-
-  Window.geometry(f'{Window_Width}x{Window_Height}')
-  return Window
- 
-
-def create_animation_canvas(Window):
-  canvas = tkinter.Canvas(Window)
-  canvas.configure(bg="Blue")
-  canvas.pack(fill="both", expand=True)
-  return canvas
- 
-
-def animate_ball(Window, canvas,xinc,yinc):
-  ball = canvas.create_oval(Ball_Start_XPosition-Ball_Radius,
-            Ball_Start_YPosition-Ball_Radius,
-            Ball_Start_XPosition+Ball_Radius,
-            Ball_Start_YPosition+Ball_Radius,
-            fill="Red", outline="Black", width=4)
-  while True:
-    canvas.move(ball,xinc,yinc)
-    Window.update()
-    time.sleep(Refresh_Sec)
-    ball_pos = canvas.coords(ball)
-    # unpack array to variables
-    al,bl,ar,br = ball_pos
-    if al < abs(xinc) or ar > Window_Width-abs(xinc):
-      xinc = -xinc
-    if bl < abs(yinc) or br > Window_Height-abs(yinc):
-      yinc = -yinc
- 
-
-Animation_Window = create_animation_window()
-Animation_canvas = create_animation_canvas(Animation_Window)
-animate_ball(Animation_Window,Animation_canvas, Ball_min_movement, Ball_min_movement)
-
+###############################
 # file_name = "Baron_En.pdf"
-# file_path = os.getcwd()
+# file_path = extractor.os.getcwd()
 
 # pdfFileObj = open(file_name, 'rb')
-# pdfReader = pdf2.PdfReader(pdfFileObj)
+# pdfReader = extractor.pdf2.PdfReader(pdfFileObj)
 
 # #print(pdfReader.numPages)
 # print(len(pdfReader.pages))
 
-# pageObj = pdfReader.pages[18]
-# print(pageObj.extract_text())
+# # pageObj = pdfReader.pages[18]
+# # print(pageObj.extract_text())
+
+# print(extractor.Extractor.num_of_pages(pdfReader.pages))
+
+# class Intro:
+    
+#     def __init__(self):
+#         wind = Tk()
+#         wind.title("The Narrator")
+#         wind.geometry("900x1440")
+
+#         lblvideo = Label(wind)
+#         lblvideo.pack()
+
+#         player = tkvideo("intro.mp4", lblvideo, loop = 1, size = (900, 1440))
+#         player.play()
+#         wind.mainloop()
